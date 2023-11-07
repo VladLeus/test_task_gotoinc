@@ -12,12 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import {useRouter} from "vue-router";
 import {RouterLink} from "vue-router";
 import {ref} from "vue";
 import MobileMenu from "@/components/MobileMenu.vue";
-
-const router = useRouter();
 
 const showMenu: any = ref(null);
 const toggleMenu = () => showMenu.value = !showMenu.value;
