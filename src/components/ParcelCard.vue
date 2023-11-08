@@ -20,21 +20,7 @@
 </template>
 
 <script setup lang="ts">
-enum ParcelType {
-  GADGETS = 'gadgets',
-  DRINKS = 'drinks',
-  CLOTHES = 'clothes',
-  MEDICINES = 'medicines',
-  OTHER = 'other'
-}
-
-interface Parcel {
-  cityFrom: string,
-  cityTo: string,
-  parcelType: ParcelType,
-  dispatchDate: Date,
-  parcelDescription?: string
-}
+import type {Parcel} from "@/parcel";
 
 defineProps({
   parcel: {

@@ -32,27 +32,105 @@
 <script setup lang="ts">
 import ParcelCard from "@/components/ParcelCard.vue";
 import {RouterLink} from "vue-router";
-enum ParcelType {
-  GADGETS = 'gadgets',
-  DRINKS = 'drinks',
-  CLOTHES = 'clothes',
-  MEDICINES = 'medicines',
-  OTHER = 'other'
-}
+import type {Parcel} from "@/parcel";
+import {ParcelType} from "@/parcel";
 
-interface Parcel {
-  cityFrom: string,
-  cityTo: string,
-  parcelType: ParcelType,
-  dispatchDate: Date,
-  parcelDescription?: string
-}
 
 localStorage.setItem('myParcels', JSON.stringify([
   {
     cityFrom: 'New York',
     cityTo: 'New Jersey',
     parcelType: ParcelType.CLOTHES,
+    dispatchDate: new Date().toLocaleDateString('uk-UA', {
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric'
+    })
+  },
+  {
+    cityFrom: 'Kyiv',
+    cityTo: 'Cherkasy',
+    parcelType: ParcelType.GADGETS,
+    dispatchDate: new Date().toLocaleDateString('uk-UA', {
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric'
+    })
+  },
+  {
+    cityFrom: 'London',
+    cityTo: 'Berlin',
+    parcelType: ParcelType.DRINKS,
+    dispatchDate: new Date().toLocaleDateString('uk-UA', {
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric'
+    })
+  },
+  {
+    cityFrom: 'Cherkasy',
+    cityTo: 'Madrid',
+    parcelType: ParcelType.OTHER,
+    dispatchDate: new Date().toLocaleDateString('uk-UA', {
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric'
+    })
+  },
+  {
+    cityFrom: 'Kyiv',
+    cityTo: 'Cherkasy',
+    parcelType: ParcelType.GADGETS,
+    dispatchDate: new Date().toLocaleDateString('uk-UA', {
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric'
+    })
+  },
+  {
+    cityFrom: 'London',
+    cityTo: 'Berlin',
+    parcelType: ParcelType.DRINKS,
+    dispatchDate: new Date().toLocaleDateString('uk-UA', {
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric'
+    })
+  },
+  {
+    cityFrom: 'Cherkasy',
+    cityTo: 'Madrid',
+    parcelType: ParcelType.OTHER,
+    dispatchDate: new Date().toLocaleDateString('uk-UA', {
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric'
+    })
+  },
+  {
+    cityFrom: 'Kyiv',
+    cityTo: 'Cherkasy',
+    parcelType: ParcelType.GADGETS,
+    dispatchDate: new Date().toLocaleDateString('uk-UA', {
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric'
+    })
+  },
+  {
+    cityFrom: 'London',
+    cityTo: 'Berlin',
+    parcelType: ParcelType.DRINKS,
+    dispatchDate: new Date().toLocaleDateString('uk-UA', {
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric'
+    })
+  },
+  {
+    cityFrom: 'Cherkasy',
+    cityTo: 'Madrid',
+    parcelType: ParcelType.OTHER,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
       year: '2-digit',
       month: 'numeric',

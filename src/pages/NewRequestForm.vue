@@ -1,5 +1,5 @@
 <template>
- <div class="h-screen">
+ <div class="min-h-screen">
    <p>New request</p>
  </div>
 </template>
