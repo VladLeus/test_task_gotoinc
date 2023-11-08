@@ -4,7 +4,10 @@
     <div class="flex flex-col border-y border-blue-200 mx-auto mt-5 items-center w-[360px]">
       <p class="text-main-color text-xl font-semibold mt-3">Your last parcels</p>
       <div v-show="myParcelsJson" class="grid grid-cols-2 gap-3 py-3 place-items-center">
-        <ParcelCard v-for="(parcel, index) in myParcels" :key="index" :my-enum="ParcelType" :parcel="parcel"/>
+        <ParcelCard v-for="(parcel, index) in myParcels"
+                    :key="index"
+                    :parcel="parcel"
+                    :parcel-idx="index"/>
       </div>
     </div>
     <div class="flex flex-col border-b border-blue-200 mx-auto mt-5 items-center w-[360px]">
@@ -41,10 +44,10 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityFrom: 'New York',
     cityTo: 'New Jersey',
     parcelType: ParcelType.CLOTHES,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+    dispatchDate: new Date('2023.11.25').toLocaleDateString('uk-UA', {
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -52,9 +55,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Cherkasy',
     parcelType: ParcelType.GADGETS,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -62,9 +65,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Berlin',
     parcelType: ParcelType.DRINKS,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -72,9 +75,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Madrid',
     parcelType: ParcelType.OTHER,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -82,9 +85,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Cherkasy',
     parcelType: ParcelType.GADGETS,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -92,9 +95,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Berlin',
     parcelType: ParcelType.DRINKS,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -102,9 +105,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Madrid',
     parcelType: ParcelType.OTHER,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -112,9 +115,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Cherkasy',
     parcelType: ParcelType.GADGETS,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -122,9 +125,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Berlin',
     parcelType: ParcelType.DRINKS,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -132,9 +135,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Madrid',
     parcelType: ParcelType.OTHER,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -142,9 +145,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Cherkasy',
     parcelType: ParcelType.GADGETS,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -152,9 +155,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Berlin',
     parcelType: ParcelType.DRINKS,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
   {
@@ -162,9 +165,9 @@ localStorage.setItem('myParcels', JSON.stringify([
     cityTo: 'Madrid',
     parcelType: ParcelType.OTHER,
     dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      year: '2-digit',
+      day: 'numeric',
       month: 'numeric',
-      day: 'numeric'
+      year: 'numeric'
     })
   },
 ]));
