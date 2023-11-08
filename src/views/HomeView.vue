@@ -18,6 +18,14 @@
         </div>
       </RouterLink>
     </div>
+    <div class="flex flex-col items-center justify-evenly border-b border-blue-200 mx-auto mt-5 w-[360px]">
+      <p class="text-main-color font-bold text-xl">We deliver faster than anybody!</p>
+      <img class="w-[128px] h-[128px]" src="@/assets/img/delivery-truck-main.png" alt="delivery-track">
+      <p class="text-main-color font-bold text-xl">We deliver all around the globe!</p>
+      <img class="w-[128px] h-[128px] mt-3" src="@/assets/img/pin.png" alt="globe">
+      <p class="text-main-color font-bold text-xl mt-3">We deliver anything!</p>
+      <img class="w-[128px] h-[128px] my-3" src="@/assets/img/package.png" alt="parcel">
+    </div>
   </main>
 </template>
 
