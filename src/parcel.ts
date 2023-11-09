@@ -14,5 +14,3 @@ export interface Parcel {
     parcelDescription?: string
 }
 
-export const myParcelsJson: any = localStorage.getItem('myParcels');
-export const myParcels: Parcel[] = JSON.parse(myParcelsJson) ?? [];

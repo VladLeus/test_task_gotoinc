@@ -5,10 +5,10 @@
         <i class="fi fi-br-cross text-white w-[30px] h-[30px] py-[30px] px-[30px]" @click="$emit('close-navigation')"></i>
         <ul class="ml-[30px] text-white text-3xl">
           <RouterLink :to="{name:'requests'}">
-            <li class="pt-6 w-full cursor-pointer flex flex-col hover-underline-animation" @click="$emit('close-navigation')">My requests</li>
+            <li class="pt-6 w-max cursor-pointer flex flex-col hover-underline-animation" @click="$emit('close-navigation')">My requests</li>
           </RouterLink>
           <RouterLink :to="{name:'new-parcel'}">
-            <li class="pt-6 w-full cursor-pointer flex flex-col hover-underline-animation" @click="$emit('close-navigation')">New parcel</li>
+            <li class="pt-6 w-max cursor-pointer flex flex-col hover-underline-animation" @click="$emit('close-navigation')">New parcel</li>
           </RouterLink>
         </ul>
       </div>

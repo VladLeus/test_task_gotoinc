@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-around">
-    <div @click="toggleBtns(parcel)"
+    <div @click="toggleBtns"
          class="flex flex-col items-start justify-evenly w-[175px] h-max border-white rounded-[15px] bg-second-color">
       <div class="flex items-center justify-evenly pt-2 pl-2">
         <i class="fi fi-sr-marker text-third-color text-lg px-1"></i>
@@ -23,7 +23,7 @@
       <div v-show="showButtons"
            class="flex items-center justify-between w-[55px] mx-auto bg-second-color rounded-[15px] mt-1">
         <i @click="toggleEditModal" class="fi fi-rr-pencil text-md text-white hover:text-green-400 pl-1"></i>
-        <i class="fi fi-rr-trash-xmark text-md text-white hover:text-red-700 pr-1"></i>
+        <i @click="() => { deleteCurrParcel(); $emit('is-deleted')}" class="fi fi-rr-trash-xmark text-md text-white hover:text-red-700 pr-1"></i>
         <ModalParcelInfo :key="parcelIdx" :parcel="parcel" :parcel-idx="parcelIdx" :is-modal-active="isEditModalActive" @modal-is-active="toggleEditModal"/>
       </div>
     </Transition>
@@ -35,36 +35,49 @@ import type {Parcel} from "@/parcel";
 import type {Ref} from "vue";
 import {ref} from "vue";
 import ModalParcelInfo from "@/components/ModalParcelInfo.vue";
+import {useRoute} from "vue-router";
 
+const route = useRoute();
 const showButtons: Ref<Boolean> = ref(false);
 const isEditModalActive: any = ref(false);
-const isDeleteModalActive: any = ref(false)
 
-defineProps({
+const myParcelsJson: any = localStorage.getItem('myParcels');
+const myParcels: Ref<Parcel[]> = myParcelsJson ? ref(JSON.parse(myParcelsJson)) : ref([]);
+const tempParcels: Parcel[] = myParcels.value;
+
+defineEmits(['is-deleted'])
+const props = defineProps({
   parcel: {
     type: Object as () => Parcel,
     required: true
   },
   parcelIdx: {
-    type: Number
-  }
+    type: Number,
+    default: null
+  },
 })
 
-const toggleBtns = (parcel: Parcel) => {
-  const now: string = new Date().toLocaleDateString('uk-UA', {
-    day: 'numeric',
-    month: 'numeric',
-    year: 'numeric'
-  })
-
-  if (parcel.dispatchDate.toString() > now){
-    showButtons.value = !showButtons.value;
+const toggleBtns = () => {
+  if (route.path === '/requests') {
+    showButtons.value = !showButtons.value
+  }
+}
+const toggleEditModal = () => {
+  const now: Date = new Date();
+  const parcelDate: Date = new Date(props.parcel.dispatchDate
+      .toString().split('.').reverse().join('-'))
+  if (parcelDate > now) {
+    isEditModalActive.value = !isEditModalActive.value
   } else {
     alert('You can\'t change info about parcels where dispatch date is today or earlier!')
   }
 }
-const toggleEditModal = () => {
-  isEditModalActive.value = !isEditModalActive.value
+
+const deleteCurrParcel = () => {
+  tempParcels.splice(props.parcelIdx, 1)
+  myParcels.value = tempParcels;
+  localStorage.setItem('myParcels', JSON.stringify(myParcels.value));
+  toggleBtns();
 }
 </script>
 

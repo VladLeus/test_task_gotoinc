@@ -4,7 +4,7 @@
     <div class="flex flex-col border-y border-blue-200 mx-auto mt-5 items-center w-[360px]">
       <p class="text-main-color text-xl font-semibold mt-3">Your last parcels</p>
       <div v-show="myParcelsJson" class="grid grid-cols-2 gap-3 py-3 place-items-center">
-        <ParcelCard v-for="(parcel, index) in mainParcels"
+        <ParcelCard v-for="(parcel, index) in myParcels"
                     :key="index"
                     :parcel="parcel"
                     :parcel-idx="index"/>
@@ -37,142 +37,11 @@ import ParcelCard from "@/components/ParcelCard.vue";
 import {RouterLink} from "vue-router";
 import type {Parcel} from "@/parcel";
 import {ParcelType} from "@/parcel";
-import {myParcelsJson} from "@/parcel";
+import type {Ref} from "vue";
+import {ref} from "vue";
 
 
-localStorage.setItem('myParcels', JSON.stringify([
-  {
-    cityFrom: 'New York',
-    cityTo: 'New Jersey',
-    parcelType: ParcelType.CLOTHES,
-    dispatchDate: new Date('2023-11-25').toLocaleDateString('uk-UA', {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'Kyiv',
-    cityTo: 'Cherkasy',
-    parcelType: ParcelType.GADGETS,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'London',
-    cityTo: 'Berlin',
-    parcelType: ParcelType.DRINKS,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'Cherkasy',
-    cityTo: 'Madrid',
-    parcelType: ParcelType.OTHER,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'Kyiv',
-    cityTo: 'Cherkasy',
-    parcelType: ParcelType.GADGETS,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'London',
-    cityTo: 'Berlin',
-    parcelType: ParcelType.DRINKS,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'Cherkasy',
-    cityTo: 'Madrid',
-    parcelType: ParcelType.OTHER,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'Kyiv',
-    cityTo: 'Cherkasy',
-    parcelType: ParcelType.GADGETS,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'London',
-    cityTo: 'Berlin',
-    parcelType: ParcelType.DRINKS,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'Cherkasy',
-    cityTo: 'Madrid',
-    parcelType: ParcelType.OTHER,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'Kyiv',
-    cityTo: 'Cherkasy',
-    parcelType: ParcelType.GADGETS,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'London',
-    cityTo: 'Berlin',
-    parcelType: ParcelType.DRINKS,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-  {
-    cityFrom: 'Cherkasy',
-    cityTo: 'Madrid',
-    parcelType: ParcelType.OTHER,
-    dispatchDate: new Date().toLocaleDateString('uk-UA', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
-  },
-]));
-
-const mainParcels: Parcel[] = myParcelsJson ? JSON.parse(myParcelsJson).slice(0, 4) : [];
+const myParcelsJson: any = localStorage.getItem('myParcels');
+const myParcels: Ref<Parcel[]> = myParcelsJson ? ref(JSON.parse(myParcelsJson).slice(0, 4)) : ref([]);
 </script>
 
