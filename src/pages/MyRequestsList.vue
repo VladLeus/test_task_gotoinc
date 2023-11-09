@@ -11,12 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import type {Parcel} from "@/parcel";
 import ParcelCard from "@/components/ParcelCard.vue";
+import {myParcelsJson, myParcels} from "@/parcel";
 
-
-const myParcelsJson = localStorage.getItem('myParcels');
-const myParcels: Parcel[] = myParcelsJson ? JSON.parse(myParcelsJson) : [];
 </script>
 
 <style scoped>

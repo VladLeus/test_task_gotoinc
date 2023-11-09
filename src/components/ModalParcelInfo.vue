@@ -1,31 +1,43 @@
 <template>
   <Transition name="modal-parcel">
-    <div v-show="isModalActive" class="flex flex-col items-start justify-evenly w-[375px] h-[300px] border-white rounded-[15px] bg-main-color modal z-10">
+    <div v-show="isModalActive"
+         class="flex flex-col items-start justify-evenly w-[375px] h-[300px] border-white rounded-[15px] bg-main-color modal z-10">
       <div class="flex items-center justify-evenly pt-2 pl-2">
         <i class="fi fi-sr-marker text-fifth-color text-lg px-1"></i>
         <label for="cityFrom" class="text-white text-md">From:</label>
-        <input type="text" id="cityFrom" v-model="parcel.cityFrom" class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1">
+        <input type="text" id="cityFrom" :value="parcel.cityFrom"
+        class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1" disabled>
       </div>
       <div class="flex items-center justify-evenly pl-2">
         <i class="fi fi-rr-route text-fifth-color text-lg px-1"></i>
         <label for="cityTo" class="text-white text-md">To:</label>
-        <input type="text" id="cityTo" v-model="parcel.cityTo" class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1">
+        <input @input="getLocation" type="text" id="cityTo" v-model="searchInput"
+               class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1 w-[150px]">
+        <select v-show="cities.length !== 0" class="font-semibold ml-3 rounded-[15px] w-[125px] pl-2 outline-0 py-1">
+          <option @click="() => onCityOptionClick(city.place_name)"
+                  v-for="city in cities">
+            {{ city.place_name }}
+          </option>
+        </select>
       </div>
       <div class="flex items-center justify-evenly pl-2">
         <i class="fi fi-rr-box-open text-fifth-color text-lg px-1"></i>
         <label for="parcelType" class="text-white text-md">Type:</label>
-        <select id="parcelType" v-model="parcel.parcelType" class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1">
-          <option v-for="type in parcelTypes" :key="type">{{ type }}</option>
-        </select>
+        <input type="text" id="parcelType" :value="parcel.parcelType"
+               class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1" disabled>
       </div>
       <div class="flex items-center justify-evenly pl-2 pb-2">
         <i class="fi fi-rr-calendar text-fifth-color text-lg px-1"></i>
         <label for="dispatchDate" class="text-white text-md">Dispatch:</label>
-        <input type="date" id="dispatchDate" v-model="parcel.dispatchDate" class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1">
+        <input type="date" id="dispatchDate" :value="date" :min="minDate"
+               class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1">
       </div>
       <div class="flex items-center w-max justify-around mx-auto">
-        <p class="w-[90px] h-[45px] bg-green-400 rounded-[15px] flex items-center justify-center mx-1 text-white font-bold">Save</p>
-        <p @click="$emit('modal-is-active')" class="w-[90px] h-[45px] bg-red-600 rounded-[15px] flex items-center justify-center mx-1 text-white font-bold">Cancel</p>
+        <p class="w-[90px] h-[45px] bg-green-400 rounded-[15px] flex items-center justify-center mx-1 text-white font-bold">
+          Save</p>
+        <p @click="$emit('modal-is-active')"
+           class="w-[90px] h-[45px] bg-red-600 rounded-[15px] flex items-center justify-center mx-1 text-white font-bold">
+          Cancel</p>
       </div>
     </div>
   </Transition>
@@ -34,11 +46,21 @@
 <script setup lang="ts">
 import type {Parcel} from "@/parcel";
 import {ParcelType} from "@/parcel";
+import {computed, ref} from 'vue';
+import type {Ref} from "vue";
+
+interface City {
+  place_name: String
+}
 
 const parcelTypes = Object.values(ParcelType);
+const queryTimeout: Ref<number | undefined> = ref(undefined);
+const searchError: Ref<boolean> = ref(false);
+const mapBoxAPI = 'pk.eyJ1IjoidmxhZGxldXMiLCJhIjoiY2xlcHlub2JlMGhjNTQxbzE0YXhuOHdkdyJ9.WUS5fJZICvhdsI1yTn16kQ';
+let cities: City[] = [];
 
 defineEmits(['modal-is-active']);
-defineProps({
+const props: any = defineProps({
   parcel: {
     type: Object as () => Parcel,
     required: true
@@ -52,6 +74,38 @@ defineProps({
     default: null
   }
 })
+const searchInput: Ref<String> = ref(props.parcel.cityTo);
+const getLocation = () => {
+  clearTimeout(queryTimeout.value);
+  queryTimeout.value = setTimeout(async () => {
+    if (searchInput.value !== '' && !cities.map(city => city.place_name).includes(searchInput.value)) {
+      const fetchURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchInput.value}.json?access_token=${mapBoxAPI}&types=place`
+      const request = await fetch(fetchURL)
+          .then(res => res.json())
+          .catch(() => { return searchError.value = true});
+      cities = request.features;
+      return;
+    }
+    cities = [];
+  }, 500)
+}
+
+const minDate = computed(() => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = (today.getMonth() + 1).toString().padStart(2, '0');
+  const day = today.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+});
+
+const date = computed(() => {
+  return props.parcel.dispatchDate.toString().split('.').reverse().join('-');
+})
+
+const onCityOptionClick = (cityName: String) => {
+  console.log("ON CITY OPTION:", cityName);
+  searchInput.value = cityName;
+}
 
 </script>
 
@@ -62,6 +116,7 @@ defineProps({
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .modal-parcel-enter-active, .modal-parcel-leave-active {
   transition: opacity 0.3s ease-in;
 }
