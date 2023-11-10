@@ -1,29 +1,31 @@
 <template>
   <div class="flex flex-col items-center justify-around">
     <div @click="toggleBtns"
-         class="flex flex-col items-start justify-evenly w-[175px] h-max border-white rounded-[15px] bg-second-color">
+         class="flex flex-col items-start justify-evenly w-[175px] h-max border-white rounded-[15px] bg-second-color
+         md:w-[245px] 2xl:w-[285px]
+    ">
       <div class="flex items-center justify-evenly pt-2 pl-2">
-        <i class="fi fi-sr-marker text-third-color text-lg px-1"></i>
-        <p class="text-white text-md">From: <span class="font-semibold">{{ parcel.cityFrom }}</span></p>
+        <i class="fi fi-sr-marker text-third-color text-lg px-1 md:text-xl 2xl:text-2xl"></i>
+        <p class="text-white text-md md:text-xl 2xl:text-2xl">From: <span class="font-semibold">{{ parcel.cityFrom }}</span></p>
       </div>
       <div class="flex items-center justify-evenly pl-2">
-        <i class="fi fi-rr-route text-third-color text-lg px-1"></i>
-        <p class="text-white text-md">To: <span class="font-semibold">{{ parcel.cityTo }}</span></p>
+        <i class="fi fi-rr-route text-third-color text-lg px-1 md:text-xl 2xl:text-2xl"></i>
+        <p class="text-white text-md md:text-xl 2xl:text-2xl">To: <span class="font-semibold">{{ parcel.cityTo }}</span></p>
       </div>
       <div class="flex items-center justify-evenly pl-2">
-        <i class="fi fi-rr-box-open text-third-color text-lg px-1"></i>
-        <p class="text-white text-md">Type: <span class="font-semibold">{{ parcel.parcelType }}</span></p>
+        <i class="fi fi-rr-box-open text-third-color text-lg px-1 md:text-xl 2xl:text-2xl"></i>
+        <p class="text-white text-md md:text-xl 2xl:text-2xl">Type: <span class="font-semibold">{{ parcel.parcelType }}</span></p>
       </div>
       <div class="flex items-center justify-evenly pl-2 pb-2">
-        <i class="fi fi-rr-calendar text-third-color text-lg px-1"></i>
-        <p class="text-white text-md">Dispatch: <span class="font-semibold text-sm">{{ parcel.dispatchDate }}</span></p>
+        <i class="fi fi-rr-calendar text-third-color text-lg px-1 md:text-xl 2xl:text-2xl"></i>
+        <p class="text-white text-md md:text-xl 2xl:text-2xl">Dispatch: <span class="font-semibold text-sm md:text-xl 2xl:text-2xl">{{ parcel.dispatchDate }}</span></p>
       </div>
     </div>
     <Transition name="edit-btns">
       <div v-show="showButtons"
-           class="flex items-center justify-between w-[55px] mx-auto bg-second-color rounded-[15px] mt-1">
-        <i @click="toggleEditModal" class="fi fi-rr-pencil text-md text-white hover:text-green-400 pl-1"></i>
-        <i @click="() => { deleteCurrParcel(); $emit('is-deleted')}" class="fi fi-rr-trash-xmark text-md text-white hover:text-red-700 pr-1"></i>
+           class="flex items-center justify-between w-[55px] md:w-[75px] mx-auto bg-second-color rounded-[15px] mt-1">
+        <i @click="toggleEditModal" class="fi fi-rr-pencil text-md text-white hover:text-green-400 pl-1 cursor-pointer md:text-xl 2xl:text-2xl"></i>
+        <i @click="() => { deleteCurrParcel(); $emit('is-deleted')}" class="fi fi-rr-trash-xmark text-md text-white hover:text-red-700 pr-1 cursor-pointer md:text-xl 2xl:text-2xl"></i>
         <ModalParcelInfo :key="parcelIdx" :parcel="parcel" :parcel-idx="parcelIdx" :is-modal-active="isEditModalActive" @modal-is-active="toggleEditModal"/>
       </div>
     </Transition>
