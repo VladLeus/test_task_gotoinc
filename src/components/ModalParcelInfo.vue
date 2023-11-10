@@ -44,7 +44,8 @@
 </template>
 
 <script setup lang="ts">
-import type {Parcel} from "@/parcel";
+import type {Parcel, City} from "@/parcel";
+import {mapBoxAPI} from "@/parcel";
 import {computed, ref} from 'vue';
 import type {Ref} from "vue";
 
@@ -52,14 +53,9 @@ const myParcelsJson: any = localStorage.getItem('myParcels');
 const myParcels: Ref<Parcel[]> = myParcelsJson ? ref(JSON.parse(myParcelsJson)) : ref([]);
 const tempMyParcels: Parcel[] = myParcels.value;
 
-interface City {
-  place_name: String
-}
-
 const queryTimeout: Ref<number | undefined> = ref(undefined);
 const searchError: Ref<boolean> = ref(false);
-const mapBoxAPI = 'pk.eyJ1IjoidmxhZGxldXMiLCJhIjoiY2xlcHlub2JlMGhjNTQxbzE0YXhuOHdkdyJ9.WUS5fJZICvhdsI1yTn16kQ';
-let cities: Ref<City[]> = ref([]);
+const cities: Ref<City[]> = ref([]);
 
 defineEmits(['modal-is-active']);
 const props: any = defineProps({
