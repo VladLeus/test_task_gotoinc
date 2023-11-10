@@ -2,8 +2,10 @@
   <main class="flex flex-col">
     <h1 class="text-main-color font-bold font-sans text-2xl mx-auto mt-5 md:text-3xl 2xl:text-4xl">Welcome back!</h1>
     <div class="flex flex-col border-y border-blue-200 mx-auto mt-5 items-center w-[360px] md:container">
-      <p class="text-main-color text-xl font-semibold mt-3 md:text-2xl 2xl:text-3xl">Your last parcels</p>
-      <div v-show="myParcelsJson" class="grid grid-cols-2 gap-3 py-3 place-items-center">
+      <p v-show="myParcels.length === 0" class="text-main-color text-xl font-semibold mt-3
+      md:text-2xl 2xl:text-3xl pb-3">You currently have no parcels</p>
+      <p v-show="myParcels.length !== 0" class="text-main-color text-xl font-semibold mt-3 md:text-2xl 2xl:text-3xl">Your last parcels</p>
+      <div v-show="myParcels.length !== 0" class="grid grid-cols-2 gap-3 py-3 place-items-center">
         <ParcelCard v-for="(parcel, index) in myParcels"
                     :key="index"
                     :parcel="parcel"

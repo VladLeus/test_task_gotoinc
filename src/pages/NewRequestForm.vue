@@ -27,7 +27,7 @@
             <input autocomplete="off" @input="getLocationTo" type="text" id="cityTo" v-model="searchInputTo"
                    class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1 w-[150px] md:w-[250px] xl:w-[350px] md:text-xl 2xl:text-2xl">
             <select v-model="selectedCityTo" id="cityTo" v-show="citiesTo.length !== 0"
-                    class="font-semibold ml-3 rounded-[15px] w-[125px] pl-2 outline-0 py-1 mt-3">
+                    class="font-semibold ml-3 rounded-[15px] w-[125px] md:w-[250px] xl:w-[350px] pl-2 outline-0 py-1 mt-3">
               <option class="md:text-2xl 2xl:text-3xl" v-for="city in citiesTo"> {{ city.place_name }}</option>
             </select>
           </div>
