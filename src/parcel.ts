@@ -19,5 +19,5 @@ export interface City {
 }
 
 export const mapBoxAPI = 'pk.eyJ1IjoidmxhZGxldXMiLCJhIjoiY2xlcHlub2JlMGhjNTQxbzE0YXhuOHdkdyJ9.WUS5fJZICvhdsI1yTn16kQ';
-// I know u don't have to store ue APIs like this,
-// but since we don't have a backend, and u gonna need this for one feature.
+// I know u don't have to store ur APIs like this,
+// but since we don't have a backend, and u gonna need this for one feature)

@@ -1,7 +1,7 @@
 <template>
   <Transition name="modal-parcel">
     <div v-show="isModalActive"
-         class="flex flex-col items-start justify-evenly w-[375px] h-[300px] border-white rounded-[15px] bg-main-color modal z-10">
+         class="flex flex-col items-start justify-evenly w-[375px] h-[450px] border-white rounded-[15px] bg-main-color modal z-10">
       <div class="flex items-center justify-evenly pt-2 pl-2">
         <i class="fi fi-sr-marker text-fifth-color text-lg px-1"></i>
         <label for="cityFrom" class="text-white text-md">From:</label>
@@ -32,6 +32,12 @@
         <input type="date" id="dispatchDate" v-model="changedDispatchDate" :min="minDate"
                class="font-semibold ml-3 rounded-[15px] pl-2 outline-0 py-1">
       </div>
+      <div class="flex items-center justify-evenly pl-2 pb-2">
+        <i class="fi fi-rr-calendar text-fifth-color text-lg px-1"></i>
+        <label for="description" class="text-white text-md">Description:</label>
+        <textarea autocomplete="off" maxlength="70" wrap="hard" id="description" v-model="parcelDesription"
+                  class="font-semibold ml-3 rounded-[15px] h-[85px] pl-2 outline-0 py-1 resize-none"></textarea>
+      </div>
       <div class="flex items-center w-max justify-around mx-auto">
         <p @click="() => { saveNewProps(); $emit('modal-is-active') }" class="w-[90px] h-[45px] bg-green-400 rounded-[15px] flex items-center justify-center mx-1 text-white font-bold">
           Save</p>
@@ -51,7 +57,6 @@ import type {Ref} from "vue";
 
 const myParcelsJson: any = localStorage.getItem('myParcels');
 const myParcels: Ref<Parcel[]> = myParcelsJson ? ref(JSON.parse(myParcelsJson)) : ref([]);
-const tempMyParcels: Parcel[] = myParcels.value;
 
 const queryTimeout: Ref<number | undefined> = ref(undefined);
 const searchError: Ref<boolean> = ref(false);
@@ -73,6 +78,8 @@ const props: any = defineProps({
   }
 })
 
+const parcelDesription: Ref<string> = ref(props.parcel.parcelDescription);
+const tempParcelDesription: Ref<string> = ref(parcelDesription.value);
 const searchInput: Ref<String> = ref(props.parcel.cityTo);
 const tempSearchInput: Ref<String> = ref(searchInput.value);
 const changedCityTo: Ref<String> = ref('');
@@ -106,7 +113,9 @@ const minDate = computed(() => {
 const saveNewProps = () => {
   if ((searchInput.value !== ''
       && searchInput.value !== tempSearchInput.value)
-      || changedDispatchDate.value !== tempChangedDispatchDate.value) {
+      || changedDispatchDate.value !== tempChangedDispatchDate.value
+      || parcelDesription.value !== tempParcelDesription.value) {
+    const tempMyParcels = JSON.parse(myParcelsJson);
     tempChangedDispatchDate.value = changedDispatchDate.value;
     if (changedCityTo.value === '')
       changedCityTo.value = searchInput.value;
@@ -118,10 +127,12 @@ const saveNewProps = () => {
       month: 'numeric',
       day: 'numeric'
     });
+    props.parcel.parcelDescription = parcelDesription.value;
     tempMyParcels[props.parcelIdx] = props.parcel;
     myParcels.value = tempMyParcels;
     localStorage.setItem('myParcels', JSON.stringify(myParcels.value));
     changedCityTo.value = '';
+    tempParcelDesription.value = '';
   }
 }
 
